@@ -1,61 +1,50 @@
-import React from "react";
+abstract class CarFactory {
+    public abstract createCar(): Car;
 
-class Car {
-    public brand: string = "";
-    public model: string = "";
+    public someOperation(): string {
+        const car = this.createCar();
 
-    constructor(brand: string, model: string) {
-        this.brand = brand;
-        this.model = model;
-    }
-
-    public say() {
-        return this.brand + ": " + this.model;
+        return `CarFactory: The same factory's code has just worked with ${car.operation()}`;
     }
 }
 
-class Toyota extends Car {
-    constructor() {
-        super("Toyota", "Supra");
+class ToyotaFactory extends CarFactory {
+
+    public createCar(): Car {
+        return new ToyotaCar();
     }
 }
 
-class Mercedes extends Car {
-    constructor() {
-        super("Mercedes", "CLE");
+class MercedesFactory extends CarFactory {
+    public createCar(): Car {
+        return new MercedesCar();
     }
 }
 
-class Nissan extends Car {
-    constructor() {
-        super("Nissan", "GTR");
+interface Car {
+    operation(): string;
+}
+
+class ToyotaCar implements Car {
+    public operation(): string {
+        return 'Toyota Car';
     }
 }
 
-class Mazda extends Car {
-    constructor() {
-        super("Mazda", "RX7");
+class MercedesCar implements Car {
+    public operation(): string {
+        return 'Mercedes Car';
     }
 }
 
-const Home: React.FC = () => {
-    const Cars: Car[] = [];
+function clientCode(factory: CarFactory) {
+    console.log('Client: I\'m not aware of the factory\'s class, but it still works.');
+    console.log(factory.someOperation());
+}
 
-    Cars.push(new Toyota());
-    Cars.push(new Mercedes());
-    Cars.push(new Nissan());
-    Cars.push(new Mazda());
+console.log('App: Launched with the ToyotaFactory.');
+clientCode(new ToyotaFactory());
+console.log('');
 
-    return (
-        <div>
-            <h1>Cars</h1>
-            <ul>
-                {Cars.map((car, index) => (
-                    <li key={index}>{car.say()}</li>
-                ))}
-            </ul>
-        </div>
-    );
-};
-
-export default Home;
+console.log('App: Launched with the MercedesFactory.');
+clientCode(new MercedesFactory());

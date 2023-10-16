@@ -1,42 +1,51 @@
-import React from "react";
+interface CarFactory {
+    createToyotaCar(): Car;
+    createMercedesCar(): Car;
+}
 
-class Car {
-    public name: string;
-
-    constructor(name: string) {
-        this.name = name;
+class ToyotaFactory implements CarFactory {
+    public createToyotaCar(): Car {
+        return new ToyotaCar();
     }
 
-    public say() {
-        return "New car " + this.name;
+    public createMercedesCar(): Car {
+        return new MercedesCar();
     }
 }
 
-class CarFactory {
-    public create(name: string) {
-        return new Car(name);
+class MercedesFactory implements CarFactory {
+    public createToyotaCar(): Car {
+        return new ToyotaCar();
+    }
+
+    public createMercedesCar(): Car {
+        return new MercedesCar();
     }
 }
 
-const Home: React.FC = () => {
-    const cars: Car[] = [];
-    const carsFactory = new CarFactory();
+interface Car {
+    drive(): string;
+}
 
-    cars.push(carsFactory.create("Toyota"));
-    cars.push(carsFactory.create("Mercedes"));
-    cars.push(carsFactory.create("Nissan"));
-    cars.push(carsFactory.create("Mazda"));
+class ToyotaCar implements Car {
+    public drive(): string {
+        return 'Driving a Toyota car.';
+    }
+}
 
-    return (
-        <div>
-            <h1>Cars</h1>
-            <ul>
-                {cars.map((car, index) => (
-                    <li key={index}>{car.say()}</li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+class MercedesCar implements Car {
+    public drive(): string {
+        return 'Driving a Mercedes car.';
+    }
+}
 
-export default Home;
+function clientCode(factory: CarFactory) {
+    const toyotaCar = factory.createToyotaCar();
+    const mercedesCar = factory.createMercedesCar();
+
+    console.log(toyotaCar.drive());
+    console.log(mercedesCar.drive());
+}
+
+clientCode(new ToyotaFactory());
+clientCode(new MercedesFactory());
