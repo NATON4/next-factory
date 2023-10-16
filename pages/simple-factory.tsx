@@ -8,16 +8,16 @@ abstract class CarFactory {
     }
 }
 
-class ToyotaFactory extends CarFactory {
+class ToyotaFactory1 extends CarFactory {
 
     public createCar(): Car {
-        return new ToyotaCar();
+        return new ToyotaCar11();
     }
 }
 
-class MercedesFactory extends CarFactory {
+class MercedesFactory1 extends CarFactory {
     public createCar(): Car {
-        return new MercedesCar();
+        return new MercedesCar11();
     }
 }
 
@@ -25,13 +25,13 @@ interface Car {
     operation(): string;
 }
 
-class ToyotaCar implements Car {
+class ToyotaCar11 implements Car {
     public operation(): string {
         return 'Toyota Car';
     }
 }
 
-class MercedesCar implements Car {
+class MercedesCar11 implements Car {
     public operation(): string {
         return 'Mercedes Car';
     }
@@ -43,8 +43,8 @@ function clientCode(factory: CarFactory) {
 }
 
 console.log('App: Launched with the ToyotaFactory.');
-clientCode(new ToyotaFactory());
+clientCode(new ToyotaFactory1());
 console.log('');
 
 console.log('App: Launched with the MercedesFactory.');
-clientCode(new MercedesFactory());
+clientCode(new MercedesFactory1());
