@@ -64,7 +64,7 @@ class MercedesCar implements Car {
 
 class BMWCar implements Car {
     public drive(): string {
-        return 'Driving a BMW car.';
+        return 'Driving a BMW car!';
     }
 }
 
