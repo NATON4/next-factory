@@ -64,19 +64,12 @@ class MercedesCar implements Car {
 
 class BMWCar implements Car {
     public drive(): string {
-<<<<<<< HEAD
         return 'Driving a BMW car.';
     }
 }
 
-function clientCode(factory: CarFactory): CarFactory {
-=======
-        return 'Driving a BMW car!';
-    }
-}
 
-function clientCode(factory: CarFactory) {
->>>>>>> 58b7d4ebdaed07f59fa6a33ef008e66e6a5427b3
+function clientCode(factory: CarFactory): void {
     const toyotaCar = factory.createToyotaCar();
     const mercedesCar = factory.createMercedesCar();
     const bmwCar = factory.createBMWCar();
